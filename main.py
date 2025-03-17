@@ -1,9 +1,7 @@
-import sys
-from os.path import dirname, abspath
+from fastapi import FastAPI
 
-sys.path.append(dirname(abspath(__file__)))
+app = FastAPI()
 
-from main import app
-from fastapi.middleware.wsgi import WSGIMiddleware
-
-application = WSGIMiddleware(app)
+@app.get("/hola/{nombre}")
+def read_item(nombre: str):
+ return {"message": f"Hola {nombre}, bienvenido a FastAPI"}
