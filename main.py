@@ -1,7 +1,12 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+
+import all_bills
 
 app = FastAPI()
 
-@app.get("/hola/{nombre}")
-def read_item(nombre: str):
- return {"message": f"Hola {nombre}, bienvenido a FastAPI"}
+app.include_router(all_bills.router, tags=["bills"])
+
+@app.get("/")
+async def read_root():
+    return JSONResponse(content={"message": "Application is running"}, status_code=200)
